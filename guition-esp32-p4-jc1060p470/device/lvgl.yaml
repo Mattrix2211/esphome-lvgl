@@ -1,10 +1,10 @@
 lvgl:
   displays: my_display
   byte_order: little_endian
-  
+
   top_layer:
     widgets:
-    
+
       # Temperature
       - label:
           text: "-° / -°"
@@ -25,10 +25,10 @@ lvgl:
           y: 8
           text_align: center
           text_color: 0xFFFFFF
-          
+
   pages:
     - id: main_page
-      layout: 
+      layout:
         type: flex
         flex_flow: column_wrap
         pad_row: 10
@@ -40,11 +40,11 @@ lvgl:
       pad_bottom: 5
       pad_left: 5
       pad_right: 5
-      
+
       widgets:
-      
-        # Office Features Scene
-        - button: 
+
+        # Bureau
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -54,20 +54,20 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  id: scene_features_icon                
-                  text: $ledstrip
+                  id: scene_features_icon
+                  text: $lightbulb
               - label:
                   align: bottom_left
                   id: scene_features_label
-                  text: "Features"
+                  text: "Bureau"
             on_press:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: light.toggle
                   data:
-                    entity_id: switch.office_features_stateful_scene
+                    entity_id: light.ampoule_bureau
 
-        # Office Calls Scene
-        - button: 
+        # Fado bureau
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -77,20 +77,20 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  id: office_scene_calls_icon                
-                  text: $videocall
+                  id: office_scene_calls_icon
+                  text: $lightbulb
               - label:
                   align: bottom_left
                   id: office_scene_calls_label
-                  text: "Calls"
+                  text: "Fado bureau"
             on_press:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: light.toggle
                   data:
-                    entity_id: switch.office_calls_stateful_scene
+                    entity_id: light.0x001788010dc8ba13
 
-        # Office Evening Scene
-        - button: 
+        # Chambre
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -100,20 +100,20 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  id: office_scene_evening_icon                
-                  text: $nightlight
+                  id: office_scene_evening_icon
+                  text: $lightbulb
               - label:
                   align: bottom_left
                   id: office_scene_evening_label
-                  text: "Evening"
+                  text: "Chambre"
             on_press:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: light.toggle
                   data:
-                    entity_id: switch.office_evening_stateful_scene
+                    entity_id: light.0x001788010c014263
 
-        # Office Dimmed Scene
-        - button: 
+        # Led chambre
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -123,20 +123,20 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  id: office_scene_dimmed_icon                
-                  text: $nightlight
+                  id: office_scene_dimmed_icon
+                  text: $ledstrip
               - label:
                   align: bottom_left
                   id: office_scene_dimmed_label
-                  text: "Dimmed"
+                  text: "Led chambre"
             on_press:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: light.toggle
                   data:
-                    entity_id: switch.office_dimmed_stateful_scene
+                    entity_id: light.0x001788010c58b8f2
 
-        # Office Blind 100%
-        - button: 
+        # Salon
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -146,19 +146,18 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  text: $blinds_open
+                  text: $lightbulb
               - label:
                   align: bottom_left
-                  text: "Open"
+                  text: "Salon"
             on_click:
               - homeassistant.service:
-                  service: cover.set_cover_position
+                  service: light.toggle
                   data:
-                    entity_id: cover.office_blind
-                    position: "100"
+                    entity_id: light.0x00178801062d1c11
 
-        # Office Blind 66%
-        - button: 
+        # Salle à manger
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -168,19 +167,18 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  text: $blinds_open
+                  text: $lightbulb
               - label:
                   align: bottom_left
-                  text: "Semi Open"
+                  text: "Salle à manger"
             on_click:
               - homeassistant.service:
-                  service: cover.set_cover_position
+                  service: light.toggle
                   data:
-                    entity_id: cover.office_blind
-                    position: "66"
+                    entity_id: light.0x001788010dc8c061
 
-        # Office Blind 33%
-        - button: 
+        # La boule
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -190,19 +188,18 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  text: $blinds_open
+                  text: $lightbulb
               - label:
                   align: bottom_left
-                  text: "Semi Closed"
+                  text: "La boule"
             on_click:
               - homeassistant.service:
-                  service: cover.set_cover_position
+                  service: light.toggle
                   data:
-                    entity_id: cover.office_blind
-                    position: "33"
+                    entity_id: light.la_boule
 
-        # Office Blind 0%
-        - button: 
+        # Salle de bain
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -212,119 +209,62 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  text: $blinds_closed
+                  text: $lightbulb
               - label:
                   align: bottom_left
-                  text: "Close"
+                  text: "Salle de bain"
             on_click:
               - homeassistant.service:
-                  service: cover.set_cover_position
+                  service: light.toggle
                   data:
-                    entity_id: cover.office_blind
-                    position: "0"
+                    entity_id: light.0x001788010c0adbc8
 
-
-        # 3d Printer
-        - button: 
+        # Cuisine
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
             id: printer_power_button
             styles: control
             widgets:
-              # Icon (shown when OFF)
               - label:
                   text_font: $icon_font
                   align: top_left
                   id: printer_power_icon
-                  text: $printer
-              # Progress (shown when ON)
-              - obj:
-                  align: top_left
-                  id: print_progress_container
-                  height: SIZE_CONTENT
-                  width: SIZE_CONTENT
-                  clickable: false
-                  layout:
-                    type: flex
-                    flex_flow: row
-                    flex_align_cross: end
-                  bg_opa: TRANSP
-                  border_width: 0
-                  pad_all: 0
-                  hidden: true
-                  widgets:
-                    - label:
-                        text_font: statistics_font
-                        text_color: $button_text_color
-                        id: print_progress_label
-                        text: "--"
-                    - label:
-                        text_font: label_font
-                        text_color: $button_text_color
-                        text: "%"
-                        pad_bottom: 6
+                  text: $lightbulb
               - label:
                   align: bottom_left
-                  text: "Printer"
+                  text: "Cuisine"
             on_click:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: light.toggle
                   data:
-                    entity_id: switch.office_3d_printer_power
+                    entity_id: light.0x001788010c2dee03
 
-        # Filament Heater
-        - button: 
+        # Led cuisine
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
             id: filament_heater_button
             styles: control
             widgets:
-              # Icon (shown when OFF)
               - label:
                   text_font: $icon_font
                   align: top_left
                   id: filament_heater_icon
-                  text: $filament
-              # Humidity (shown when ON)
-              - obj:
-                  align: top_left
-                  id: dryer_humidity_container
-                  height: SIZE_CONTENT
-                  width: SIZE_CONTENT
-                  clickable: false
-                  layout:
-                    type: flex
-                    flex_flow: row
-                    flex_align_cross: end
-                  bg_opa: TRANSP
-                  border_width: 0
-                  pad_all: 0
-                  hidden: true
-                  widgets:
-                    - label:
-                        text_font: statistics_font
-                        text_color: $button_text_color
-                        id: dryer_humidity_label
-                        text: "--"
-                    - label:
-                        text_font: label_font
-                        text_color: $button_text_color
-                        text: "%"
-                        pad_bottom: 6
-                        pad_left: -4
+                  text: $ledstrip
               - label:
                   align: bottom_left
-                  text: "Dryer"
+                  text: "Led cuisine"
             on_click:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: light.toggle
                   data:
-                    entity_id: switch.office_filament_heater_893b
+                    entity_id: light.0x001788010d0b3aa9
 
-        # Office Aircon
-        - button: 
+        # Couloir
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -334,16 +274,18 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  text: $aircon
+                  text: $lightbulb
               - label:
                   align: bottom_left
-                  text: "Aircon"
+                  text: "Couloir"
             on_click:
               - homeassistant.service:
-                  service: script.office_air_conditioner
+                  service: light.toggle
+                  data:
+                    entity_id: light.0x001788010c2de07e
 
-        # Battery Charger
-        - button: 
+        # Lampe couloir
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -354,19 +296,19 @@ lvgl:
                   text_font: $icon_font
                   align: top_left
                   id: battery_charger_icon
-                  text: $battery
+                  text: $lightbulb
               - label:
                   align: bottom_left
                   id: battery_charger_label
-                  text: "Charger"
+                  text: "Lampe couloir"
             on_click:
               - homeassistant.service:
                   service: switch.toggle
                   data:
-                    entity_id: switch.battery_charger
+                    entity_id: switch.lampe_couloir
 
-        # Storage Lights
-        - button: 
+        # Toilette
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -377,19 +319,19 @@ lvgl:
                   text_font: $icon_font
                   align: top_left
                   id: storage_lights_icon
-                  text: $package
+                  text: $lightbulb
               - label:
                   align: bottom_left
                   id: storage_lights_label
-                  text: "Storage"
+                  text: "Toilette"
             on_click:
               - homeassistant.service:
                   service: light.toggle
                   data:
-                    entity_id: light.office_storage
+                    entity_id: light.ampoule_toilette
 
-        # Network Rack
-        - button: 
+        # Libre
+        - button:
             height: $button_height
             width: $button_width
             checkable: true
@@ -400,13 +342,13 @@ lvgl:
                   text_font: $icon_font
                   align: top_left
                   id: network_rack_icon
-                  text: $network
+                  text: $home
               - label:
                   align: bottom_left
                   id: network_rack_label
-                  text: "Network Rack"
+                  text: "Libre"
             on_click:
               - homeassistant.service:
                   service: light.toggle
                   data:
-                    entity_id: light.office_network_rack
+                    entity_id: light.0x00178801062d1c11

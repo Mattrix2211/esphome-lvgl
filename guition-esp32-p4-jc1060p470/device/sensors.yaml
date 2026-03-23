@@ -153,7 +153,7 @@ binary_sensor:
           state:
             checked: !lambda 'return x;'
 
-
+sensor:
   # Température 1
   - platform: homeassistant
     id: indoor_temperature
@@ -180,6 +180,8 @@ binary_sensor:
             args:
               - id(indoor_temperature).state
               - x
+
+text_sensor:
   - platform: homeassistant
     id: current_time_ha
     entity_id: sensor.time
@@ -191,3 +193,4 @@ binary_sensor:
             format: "%s"
             args:
               - x.c_str()
+ 

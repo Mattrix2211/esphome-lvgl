@@ -153,12 +153,6 @@ binary_sensor:
           state:
             checked: !lambda 'return x;'
 
-sensor:
-  # Signal Wi-Fi brut
-  - platform: wifi_signal
-    name: "Wifi Signal dB"
-    id: wifi_signal_db
-    update_interval: 60s
 
   # Température 1
   - platform: homeassistant

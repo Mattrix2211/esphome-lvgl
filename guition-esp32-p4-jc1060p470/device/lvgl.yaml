@@ -65,6 +65,22 @@ lvgl:
                   service: light.toggle
                   data:
                     entity_id: light.ampoule_bureau
+            on_long_press:
+              - lvgl.label.update:
+                  id: selected_light_title
+                  text: "Bureau"
+              - lvgl.label.update:
+                  id: selected_light_status
+                  text: "État : sélectionné"
+              - lvgl.label.update:
+                  id: selected_light_brightness
+                  text: "Lum : --"
+              - lvgl.label.update:
+                  id: selected_light_temp
+                  text: "Temp : --"
+              - lvgl.label.update:
+                  id: selected_light_color
+                  text: "Couleur : --"
 
         # Fado bureau
         - button:

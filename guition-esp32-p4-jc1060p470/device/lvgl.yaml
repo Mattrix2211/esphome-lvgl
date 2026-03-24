@@ -375,6 +375,11 @@ lvgl:
                     - label:
                         text: "ON / OFF"
                         align: center
+                  on_press:
+                    - homeassistant.service:
+                        service: light.toggle
+                        data:
+                          entity_id: light.ampoule_bureau
 
               - button:
                   id: quick_25_button
@@ -385,6 +390,12 @@ lvgl:
                     - label:
                         text: "25%"
                         align: center
+                  on_press:
+                    - homeassistant.service:
+                        service: light.turn_on
+                        data:
+                          entity_id: light.ampoule_bureau
+                          brightness_pct: 25
 
               - button:
                   id: quick_50_button
@@ -395,6 +406,12 @@ lvgl:
                     - label:
                         text: "50%"
                         align: center
+                  on_press:
+                    - homeassistant.service:
+                        service: light.turn_on
+                        data:
+                          entity_id: light.ampoule_bureau
+                          brightness_pct: 50
 
               - button:
                   id: quick_100_button
@@ -405,4 +422,10 @@ lvgl:
                     - label:
                         text: "100%"
                         align: center
+                  on_press:
+                    - homeassistant.service:
+                        service: light.turn_on
+                        data:
+                          entity_id: light.ampoule_bureau
+                          brightness_pct: 100
 

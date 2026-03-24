@@ -133,7 +133,7 @@ binary_sensor:
 
 
 sensor:
-  # Température 1
+  # Température intérieure
   - platform: homeassistant
     id: indoor_temperature
     entity_id: sensor.office_temperature
@@ -146,7 +146,7 @@ sensor:
             args:
               - x
 
-  # Température 2
+  # Température extérieure
   - platform: homeassistant
     id: outdoor_temperature
     entity_id: sensor.outdoor_temperature
@@ -160,7 +160,37 @@ sensor:
               - id(indoor_temperature).state
               - x
 
+  # Bureau - luminosité réelle
+  - platform: homeassistant
+    id: bureau_brightness
+    entity_id: light.ampoule_bureau
+    attribute: brightness
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: selected_light_brightness
+          text:
+            format: "Lum : %.0f%%"
+            args:
+              - !lambda 'return (x / 255.0f) * 100.0f;'
+
+  # Bureau - température réelle si supportée
+  - platform: homeassistant
+    id: bureau_temp
+    entity_id: light.ampoule_bureau
+    attribute: color_temp
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: selected_light_temp
+          text:
+            format: "Temp : %.0f"
+            args:
+              - x
+
+
 text_sensor:
+  # Heure
   - platform: homeassistant
     id: current_time_ha
     entity_id: sensor.time
@@ -172,4 +202,16 @@ text_sensor:
             format: "%s"
             args:
               - x.c_str()
- 
+
+  # Bureau - état réel
+  - platform: homeassistant
+    id: bureau_light_status_text
+    entity_id: light.ampoule_bureau
+    internal: true
+    on_value:
+      - lvgl.label.update:
+          id: selected_light_status
+          text:
+            format: "État : %s"
+            args:
+              - x.c_str()

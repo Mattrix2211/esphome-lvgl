@@ -395,7 +395,7 @@ lvgl:
                         service: light.turn_on
                         data:
                           entity_id: light.ampoule_bureau
-                          brightness_pct: 25
+                          brightness_pct: "25"
 
               - button:
                   id: quick_50_button
@@ -411,7 +411,7 @@ lvgl:
                         service: light.turn_on
                         data:
                           entity_id: light.ampoule_bureau
-                          brightness_pct: 50
+                          brightness_pct: "50"
 
               - button:
                   id: quick_100_button
@@ -427,5 +427,5 @@ lvgl:
                         service: light.turn_on
                         data:
                           entity_id: light.ampoule_bureau
-                          brightness_pct: 100
+                          brightness_pct: "100"
 

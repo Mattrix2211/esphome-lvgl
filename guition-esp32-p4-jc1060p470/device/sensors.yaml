@@ -166,14 +166,15 @@ sensor:
     entity_id: light.ampoule_bureau
     attribute: brightness
     internal: true
+    filters:
+      - multiply: 0.3921568627
     on_value:
       - lvgl.label.update:
           id: selected_light_brightness
           text:
             format: "Lum : %.0f%%"
             args:
-              - !lambda |-
-                  return (x / 255.0) * 100.0;
+              - x
 
   # Bureau - température réelle si supportée
   - platform: homeassistant

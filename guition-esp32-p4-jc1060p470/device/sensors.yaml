@@ -205,15 +205,4 @@ text_sensor:
             args:
               - x.c_str()
 
-  # Bureau - état réel
-  - platform: homeassistant
-    id: bureau_light_status_text
-    entity_id: light.ampoule_bureau
-    internal: true
-    on_value:
-      - lvgl.label.update:
-          id: selected_light_status
-          text:
-            format: "État : %s"
-            args:
-              - x.c_str()
+

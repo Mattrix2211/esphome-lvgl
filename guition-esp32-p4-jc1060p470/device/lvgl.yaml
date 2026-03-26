@@ -70,8 +70,8 @@ lvgl:
                   id: selected_light_title
                   text: "Bureau"
               - lvgl.label.update:
-                  id: selected_light_status
-                  text: "État : sélectionné"
+                  id: selected_light_toggle_label
+                  text: "Bureau"
               - lvgl.label.update:
                   id: selected_light_brightness
                   text: "Lum : --"
@@ -346,10 +346,21 @@ lvgl:
                   text: "Aucune sélection"
                   text_color: 0xFFFFFF
 
-              - label:
-                  id: selected_light_status
-                  text: "État : --"
-                  text_color: 0xCCCCCC
+              - button:
+                  id: selected_light_toggle_button
+                  height: 55
+                  width: 100%
+                  styles: control
+                  on_press:
+                    - homeassistant.service:
+                        service: light.toggle
+                        data:
+                          entity_id: light.ampoule_bureau
+                  widgets:
+                    - label:
+                        id: selected_light_toggle_label
+                        text: "ON / OFF"
+                        align: center
 
               - label:
                   id: selected_light_brightness

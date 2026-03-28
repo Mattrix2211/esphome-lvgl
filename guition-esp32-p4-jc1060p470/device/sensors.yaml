@@ -1,3 +1,328 @@
+globals:
+  - id: selected_light
+    type: std::string
+    restore_value: false
+    initial_value: '""'
+  - id: selected_light_name
+    type: std::string
+    restore_value: false
+    initial_value: '""'
+  - id: selected_light_is_dimmable
+    type: bool
+    restore_value: false
+    initial_value: "false"
+  - id: selected_light_is_switch
+    type: bool
+    restore_value: false
+    initial_value: "false"
+  - id: selected_light_valid
+    type: bool
+    restore_value: false
+    initial_value: "false"
+  - id: suppress_next_short_click
+    type: bool
+    restore_value: false
+    initial_value: "false"
+
+script:
+  - id: reset_light_context
+    then:
+      - lambda: |-
+          id(selected_light).clear();
+          id(selected_light_name).clear();
+          id(selected_light_is_dimmable) = false;
+          id(selected_light_is_switch) = false;
+          id(selected_light_valid) = false;
+          id(suppress_next_short_click) = false;
+      - lvgl.label.update:
+          id: selected_light_title
+          text: "Aucune sélection"
+      - lvgl.label.update:
+          id: selected_light_brightness
+          text: "Lum : --"
+      - lvgl.widget.update:
+          id: quick_25_button
+          state:
+            disabled: true
+      - lvgl.widget.update:
+          id: quick_50_button
+          state:
+            disabled: true
+      - lvgl.widget.update:
+          id: quick_100_button
+          state:
+            disabled: true
+
+  - id: select_light_context
+    parameters:
+      entity_id: string
+      display_name: string
+      is_dimmable: bool
+      is_switch: bool
+    then:
+      - lambda: |-
+          id(selected_light) = entity_id;
+          id(selected_light_name) = display_name;
+          id(selected_light_is_dimmable) = is_dimmable;
+          id(selected_light_is_switch) = is_switch;
+          id(selected_light_valid) = true;
+          id(suppress_next_short_click) = true;
+      - lvgl.label.update:
+          id: selected_light_title
+          text:
+            format: "%s"
+            args:
+              - display_name.c_str()
+      - lvgl.label.update:
+          id: selected_light_toggle_label
+          text: "ON / OFF"
+      - if:
+          condition:
+            lambda: 'return is_dimmable;'
+          then:
+            - lvgl.widget.update:
+                id: quick_25_button
+                state:
+                  disabled: false
+            - lvgl.widget.update:
+                id: quick_50_button
+                state:
+                  disabled: false
+            - lvgl.widget.update:
+                id: quick_100_button
+                state:
+                  disabled: false
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text: "Lum : --"
+          else:
+            - lvgl.widget.update:
+                id: quick_25_button
+                state:
+                  disabled: true
+            - lvgl.widget.update:
+                id: quick_50_button
+                state:
+                  disabled: true
+            - lvgl.widget.update:
+                id: quick_100_button
+                state:
+                  disabled: true
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text: "Lum : N/A"
+
+  - id: toggle_selected_light
+    then:
+      - if:
+          condition:
+            lambda: 'return id(selected_light_valid);'
+          then:
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.ampoule_bureau";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.ampoule_bureau
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010dc8ba13";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010dc8ba13
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c014263";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c014263
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c58b8f2";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c58b8f2
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x00178801062d1c11";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x00178801062d1c11
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010dc8c061";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010dc8c061
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.la_boule";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.la_boule
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c0adbc8";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c0adbc8
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c2dee03";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c2dee03
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010d0b3aa9";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010d0b3aa9
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c2de07e";'
+                then:
+                  - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c2de07e
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "switch.lampe_couloir";'
+                then:
+                  - homeassistant.service:
+                      service: switch.toggle
+                      data:
+                        entity_id: switch.lampe_couloir
+
+  - id: set_selected_light_brightness
+    parameters:
+      brightness_pct: int
+    then:
+      - if:
+          condition:
+            lambda: 'return id(selected_light_valid) && id(selected_light_is_dimmable) && !id(selected_light_is_switch);'
+          then:
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.ampoule_bureau";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.ampoule_bureau
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010dc8ba13";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x001788010dc8ba13
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c014263";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x001788010c014263
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c58b8f2";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x001788010c58b8f2
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x00178801062d1c11";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x00178801062d1c11
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010dc8c061";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x001788010dc8c061
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.la_boule";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.la_boule
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c0adbc8";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x001788010c0adbc8
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c2dee03";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x001788010c2dee03
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010d0b3aa9";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x001788010d0b3aa9
+                        brightness_pct: !lambda 'return brightness_pct;'
+            - if:
+                condition:
+                  lambda: 'return id(selected_light) == "light.0x001788010c2de07e";'
+                then:
+                  - homeassistant.service:
+                      service: light.turn_on
+                      data:
+                        entity_id: light.0x001788010c2de07e
+                        brightness_pct: !lambda 'return brightness_pct;'
+
 binary_sensor:
   # Bureau
   - platform: homeassistant
@@ -131,7 +456,6 @@ binary_sensor:
           state:
             checked: !lambda 'return x;'
 
-
 sensor:
   # Température intérieure
   - platform: homeassistant
@@ -160,7 +484,7 @@ sensor:
               - id(indoor_temperature).state
               - x
 
-  # Bureau - luminosité réelle
+  # Luminosité Bureau
   - platform: homeassistant
     id: bureau_brightness
     entity_id: light.ampoule_bureau
@@ -169,13 +493,216 @@ sensor:
     filters:
       - multiply: 0.3921568627
     on_value:
-      - lvgl.label.update:
-          id: selected_light_brightness
-          text:
-            format: "Lum : %.0f%%"
-            args:
-              - x
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.ampoule_bureau";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
 
+  # Luminosité Fado bureau
+  - platform: homeassistant
+    id: fado_bureau_brightness
+    entity_id: light.0x001788010dc8ba13
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x001788010dc8ba13";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité Chambre
+  - platform: homeassistant
+    id: chambre_brightness
+    entity_id: light.0x001788010c014263
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x001788010c014263";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité Led chambre
+  - platform: homeassistant
+    id: led_chambre_brightness
+    entity_id: light.0x001788010c58b8f2
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x001788010c58b8f2";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité Salon
+  - platform: homeassistant
+    id: salon_brightness
+    entity_id: light.0x00178801062d1c11
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x00178801062d1c11";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité Salle à manger
+  - platform: homeassistant
+    id: salle_a_manger_brightness
+    entity_id: light.0x001788010dc8c061
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x001788010dc8c061";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité La boule
+  - platform: homeassistant
+    id: la_boule_brightness
+    entity_id: light.la_boule
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.la_boule";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité Salle de bain
+  - platform: homeassistant
+    id: salle_de_bain_brightness
+    entity_id: light.0x001788010c0adbc8
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x001788010c0adbc8";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité Cuisine
+  - platform: homeassistant
+    id: cuisine_brightness
+    entity_id: light.0x001788010c2dee03
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x001788010c2dee03";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité Led cuisine
+  - platform: homeassistant
+    id: led_cuisine_brightness
+    entity_id: light.0x001788010d0b3aa9
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x001788010d0b3aa9";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
+
+  # Luminosité Couloir
+  - platform: homeassistant
+    id: couloir_brightness
+    entity_id: light.0x001788010c2de07e
+    attribute: brightness
+    internal: true
+    filters:
+      - multiply: 0.3921568627
+    on_value:
+      - if:
+          condition:
+            lambda: 'return id(selected_light) == "light.0x001788010c2de07e";'
+          then:
+            - lvgl.label.update:
+                id: selected_light_brightness
+                text:
+                  format: "Lum : %.0f%%"
+                  args:
+                    - x
 
 text_sensor:
   # Heure
@@ -190,5 +717,3 @@ text_sensor:
             format: "%s"
             args:
               - x.c_str()
-
-

@@ -60,21 +60,24 @@ lvgl:
                   align: bottom_left
                   id: scene_features_label
                   text: "Bureau"
-            on_press:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.ampoule_bureau
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.ampoule_bureau
             on_long_press:
-              - lvgl.label.update:
-                  id: selected_light_title
-                  text: "Bureau"
-              - lvgl.label.update:
-                  id: selected_light_toggle_label
-                  text: "Allumer / Éteindre"
-              - lvgl.label.update:
-                  id: selected_light_brightness
-                  text: "Lum : --"
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.ampoule_bureau"
+                  display_name: "Bureau"
+                  is_dimmable: true
+                  is_switch: false
 
         # Fado bureau
         - button:
@@ -93,11 +96,24 @@ lvgl:
                   align: bottom_left
                   id: office_scene_calls_label
                   text: "Fado bureau"
-            on_press:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x001788010dc8ba13
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010dc8ba13
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x001788010dc8ba13"
+                  display_name: "Fado bureau"
+                  is_dimmable: true
+                  is_switch: false
 
         # Chambre
         - button:
@@ -116,11 +132,24 @@ lvgl:
                   align: bottom_left
                   id: office_scene_evening_label
                   text: "Chambre"
-            on_press:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x001788010c014263
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c014263
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x001788010c014263"
+                  display_name: "Chambre"
+                  is_dimmable: true
+                  is_switch: false
 
         # Led chambre
         - button:
@@ -139,11 +168,24 @@ lvgl:
                   align: bottom_left
                   id: office_scene_dimmed_label
                   text: "Led chambre"
-            on_press:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x001788010c58b8f2
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c58b8f2
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x001788010c58b8f2"
+                  display_name: "Led chambre"
+                  is_dimmable: true
+                  is_switch: false
 
         # Salon
         - button:
@@ -160,11 +202,24 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "Salon"
-            on_click:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x00178801062d1c11
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x00178801062d1c11
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x00178801062d1c11"
+                  display_name: "Salon"
+                  is_dimmable: true
+                  is_switch: false
 
         # Salle à manger
         - button:
@@ -181,11 +236,24 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "Salle à manger"
-            on_click:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x001788010dc8c061
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010dc8c061
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x001788010dc8c061"
+                  display_name: "Salle à manger"
+                  is_dimmable: true
+                  is_switch: false
 
         # La boule
         - button:
@@ -202,11 +270,24 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "La boule"
-            on_click:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.la_boule
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.la_boule
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.la_boule"
+                  display_name: "La boule"
+                  is_dimmable: true
+                  is_switch: false
 
         # Salle de bain
         - button:
@@ -223,11 +304,24 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "Salle de bain"
-            on_click:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x001788010c0adbc8
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c0adbc8
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x001788010c0adbc8"
+                  display_name: "Salle de bain"
+                  is_dimmable: true
+                  is_switch: false
 
         # Cuisine
         - button:
@@ -245,11 +339,24 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "Cuisine"
-            on_click:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x001788010c2dee03
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c2dee03
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x001788010c2dee03"
+                  display_name: "Cuisine"
+                  is_dimmable: true
+                  is_switch: false
 
         # Led cuisine
         - button:
@@ -267,11 +374,24 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "Led cuisine"
-            on_click:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x001788010d0b3aa9
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010d0b3aa9
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x001788010d0b3aa9"
+                  display_name: "Led cuisine"
+                  is_dimmable: true
+                  is_switch: false
 
         # Couloir
         - button:
@@ -288,11 +408,24 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "Couloir"
-            on_click:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id: light.0x001788010c2de07e
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: light.toggle
+                      data:
+                        entity_id: light.0x001788010c2de07e
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "light.0x001788010c2de07e"
+                  display_name: "Couloir"
+                  is_dimmable: true
+                  is_switch: false
 
         # Lampe couloir
         - button:
@@ -311,11 +444,24 @@ lvgl:
                   align: bottom_left
                   id: battery_charger_label
                   text: "Lampe couloir"
-            on_click:
-              - homeassistant.service:
-                  service: switch.toggle
-                  data:
-                    entity_id: switch.lampe_couloir
+            on_short_click:
+              - if:
+                  condition:
+                    lambda: 'return id(suppress_next_short_click);'
+                  then:
+                    - lambda: 'id(suppress_next_short_click) = false;'
+                  else:
+                    - homeassistant.service:
+                      service: switch.toggle
+                      data:
+                        entity_id: switch.lampe_couloir
+            on_long_press:
+              - script.execute:
+                  id: select_light_context
+                  entity_id: "switch.lampe_couloir"
+                  display_name: "Lampe couloir"
+                  is_dimmable: false
+                  is_switch: true
 
 
         # Panneau latéral
@@ -336,8 +482,12 @@ lvgl:
             widgets:
               - label:
                   id: selected_light_title
-                  text: "TEST PANNEAU"
+                  text: "Aucune sélection"
                   text_color: 0xFFFFFF
+              - label:
+                  id: selected_light_build
+                  text: "CTX: 11aeb06"
+                  text_color: 0x888888
 
               - button:
                   id: selected_light_toggle_button
@@ -345,10 +495,7 @@ lvgl:
                   width: 100%
                   styles: control
                   on_press:
-                    - homeassistant.service:
-                        service: light.toggle
-                        data:
-                          entity_id: light.ampoule_bureau
+                    - script.execute: toggle_selected_light
                   widgets:
                     - label:
                         id: selected_light_toggle_label
@@ -377,11 +524,9 @@ lvgl:
                         width: 70
                         styles: control
                         on_press:
-                          - homeassistant.service:
-                              service: light.turn_on
-                              data:
-                                entity_id: light.ampoule_bureau
-                                brightness_pct: "25"
+                          - script.execute:
+                              id: set_selected_light_brightness
+                              brightness_pct: 25
                         widgets:
                           - label:
                               text: "25%"
@@ -393,11 +538,9 @@ lvgl:
                         width: 70
                         styles: control
                         on_press:
-                          - homeassistant.service:
-                              service: light.turn_on
-                              data:
-                                entity_id: light.ampoule_bureau
-                                brightness_pct: "50"
+                          - script.execute:
+                              id: set_selected_light_brightness
+                              brightness_pct: 50
                         widgets:
                           - label:
                               text: "50%"
@@ -409,11 +552,9 @@ lvgl:
                         width: 70
                         styles: control
                         on_press:
-                          - homeassistant.service:
-                              service: light.turn_on
-                              data:
-                                entity_id: light.ampoule_bureau
-                                brightness_pct: "100"
+                          - script.execute:
+                              id: set_selected_light_brightness
+                              brightness_pct: 100
                         widgets:
                           - label:
                               text: "100%"

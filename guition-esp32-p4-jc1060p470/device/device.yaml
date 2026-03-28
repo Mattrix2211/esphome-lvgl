@@ -20,6 +20,10 @@ esphome:
   name: ${name}
   friendly_name: ${friendly_name}
   area: ${room}
+  on_boot:
+    priority: -10
+    then:
+      - script.execute: reset_light_context
 
 # External components
 external_components:
